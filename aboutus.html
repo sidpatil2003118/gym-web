@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="bootstrap.bundle.min.js"></script>
+
+  <style>
+
+.outer1 {
+      position: relative;
+    }
+
+    .inner1 {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      z-index: 1;
+      background-color: rgba(0, 0, 0, 0.705);
+      min-height: 100px;
+      display: flex;               
+      align-items: center;         
+      justify-content: space-between; 
+      padding: 0 20px;
+    }
+
+    .logo {
+      height: 80px;
+      width: 150px;
+    }
+
+    .main1 {
+      display: flex;
+      gap: 25px;
+      list-style: none;
+      margin-right: 25%;
+    }
+
+    .main1 li {
+      margin-left: 40px;
+    }
+
+    .main1 li a {
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 18px;
+      padding: 10px;
+    }
+
+    .main1 li a:hover {
+      color: rgb(255, 247, 0);
+      transition: 0.1s;
+      background-color: rgba(0, 0, 0, 0.607);
+      border-bottom: 3px solid rgb(255, 247, 0);
+    }
+
+    .carousel-caption h1 {
+      font-size: 100px;
+      font-weight: bold;
+    }
+
+    .carousel-caption h5 {
+      font-size: 30px;
+      font-weight: bold;
+    }
+
+    .carousel-caption {
+      bottom: 40%;   
+      margin-bottom: 0;
+      text-align: center;
+    }
+
+    /* ✅ Responsive caption scaling */
+    @media (max-width: 768px) {
+      .carousel-caption h1 {
+        font-size: 40px;   
+      }
+      .carousel-caption h5 {
+        font-size: 18px;
+      }
+      .carousel-caption {
+        bottom: 40%;       
+        text-align: center;
+      }
+    }
+
+    .hamburger {
+      width: 30px;
+      cursor: pointer;
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .hamburger span {
+      height: 4px;
+      background: white;
+      display: block;
+      border-radius: 2px;
+    }
+
+    /* ✅ Sidebar dropdown from left */
+    .dropdown {
+      color: #000;
+      text-decoration: none;  
+	  list-style: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 250px;
+      background: #fff;
+      padding: 20px;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.3);
+      transform: translateX(-100%); /* hidden off-screen */
+      transition: transform 0.3s ease;
+      z-index: 999;
+      flex-direction: column;
+    }
+
+    .dropdown.active {
+      transform: translateX(0); /* slide in */
+    }
+
+    .dropdown li {
+      text-decoration: none;
+      padding: 15px 0;
+      border-bottom: 1px solid #555;
+    }
+
+    .dropdown li a {
+      text-decoration: none;
+      color: #000;
+
+    }
+
+    /* ✅ Close button inside sidebar */
+    .close-btn {
+      margin-left: 190px;  
+      align-self: flex-end;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 1024px) {
+      .main1 {
+        display: none; 
+      }
+      .hamburger {
+        display: flex; 
+      }
+    }
+
+    @media (min-width: 1025px) {
+      .dropdown {
+        display: none !important; /* ✅ hide sidebar on desktop */
+      }
+    }
+
+    /* ✅ Fix carousel buttons visibility */
+    .carousel-control-prev,
+    .carousel-control-next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      bottom: auto; 
+      z-index: 2;   
+    }
+
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+      background-size: 100% 100%;
+      filter: invert(1); 
+    }
+
+    .carousel-inner {
+      height: auto;        
+      max-height: 800px;   
+    }
+
+
+
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: #000;
+    color: #fff;
+}
+
+.about-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 40px;
+    gap: 40px;
+}
+
+.about-img {
+    position: relative;
+    flex: 1;
+}
+
+.about-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.play-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #ff7a00;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.about-content {
+    flex: 1;
+}
+
+.about-content h4 {
+    color: #d0ff00;
+    margin-bottom: 10px;
+}
+
+.about-content h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.about-content p {
+    line-height: 1.7;
+    color: #ccc;
+    margin-bottom: 35px;
+}
+
+/* Progress Bars */
+.progress-box {
+    margin-bottom: 25px;
+}
+
+.label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.progress {
+    width: 100%;
+    height: 6px;
+    background: #333;
+    border-radius: 3px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: #ffffff;
+    border-radius: 3px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 992px) {
+    .about-section {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .about-content {
+        width: 100%;
+    }
+
+    .label {
+        justify-content: space-between;
+    }
+}
+
+@media (max-width: 600px) {
+    .about-section {
+        padding: 20px;
+    }
+
+    .about-content h1 {
+        font-size: 28px;
+    }
+}
+
+
+
+/* Main footer */
+.footer-main {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 50px;
+    padding: 60px 8%;
+}
+
+.footer-col h3 {
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+.footer-col ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-col ul li {
+    margin-bottom: 12px;
+    color: #ccc;
+    cursor: pointer;
+}
+
+.footer-col ul li:hover {
+    color: white;
+}
+
+.footer-col p {
+    color: #ccc;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.logo {
+    font-size: 38px;
+    font-weight: 900;
+}
+
+.social a {
+    margin-right: 15px;
+    color: white;
+    font-size: 20px;
+}
+
+/* Tips section inside footer */
+.tip {
+    margin-bottom: 25px;
+}
+
+.tip p {
+    color: #fff;
+    margin-bottom: 5px;
+}
+
+.tip span {
+    color: #aaa;
+    font-size: 13px;
+}
+
+/* Bottom */
+.footer-bottom {
+    border-top: 1px solid #222;
+    text-align: center;
+    padding: 20px;
+    color: #bbb;
+    font-size: 14px;
+}
+
+/* ---------------- Responsive ---------------- */
+
+/* Tablet */
+@media (max-width: 992px) {
+    .footer-main {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .footer-main {
+        grid-template-columns: 1fr;
+        text-align: left;
+    }
+
+    .footer-item {
+        justify-content: center;
+        text-align: center;
+    }
+
+    .footer-top {
+        gap: 40px;
+    }
+}
+  </style>
+
+</head>
+<body>
+    <div class="outer1">
+    <div class="inner1">
+      <img src="./images/Logo.png" alt="logo" class="logo">
+
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      <ul class="main1">
+        <li><a href="index.html">HOME</a></li>
+        <li><a href="aboutus.html" style="color: #d9ff00; border-bottom: 3px solid yellow;">ABOUT US</a></li>
+        <li><a href="services.html">SERVICES</a></li>
+        <li><a href="our team.html">OUR TEAM</a></li>
+        <li><a href="contact.html">CONTACT</a></li>
+      </ul>
+
+      <ul class="dropdown" id="dropdown">
+        <div class="close-btn" id="closeBtn">&times;</div>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="aboutus.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="our team.html">Our team</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+
+    <div id="carouselExampleCaptions" class="carousel slide">
+      <div class="carousel-indicators">
+        
+      </div>
+
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="https://workoutguru.fit/wp-content/uploads/2023/11/ideal-body-proportions-calculator.jpg" class="d-block w-100" alt="...">
+          <div class="carousel-caption">
+            <h1><span style="color: #d9ff00;">ABOUT US</span><br></h1>
+          </div>
+        </div>
+        
+        
+      </div>
+
+      
+    </div>
+  </div>
+
+
+  <section class="about-section">
+    <div class="about-img">
+        <img src="https://gymjunkies.com/wp-content/uploads/2018/04/Make-A-bodybuilding-Workout-Schedule.jpg" alt="Image">
+    </div>
+
+    <div class="about-content">
+        <h4>ABOUT US</h4>
+        <h1>WHAT WE HAVE DONE</h1>
+
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt 
+            ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo 
+            viverra maecenas accumsan lacus vel facilisis. 
+        </p>
+
+        <!-- PROGRESS BARS -->
+        <div class="progress-box">
+            <div class="label">
+                <span>Body building</span>
+                <span>80%</span>
+            </div>
+            <div class="progress">
+                <div class="progress-fill" style="width:80%"></div>
+            </div>
+        </div>
+
+        <div class="progress-box">
+            <div class="label">
+                <span>Training</span>
+                <span>85%</span>
+            </div>
+            <div class="progress">
+                <div class="progress-fill" style="width:85%"></div>
+            </div>
+        </div>
+
+        <div class="progress-box">
+            <div class="label">
+                <span>Fitness</span>
+                <span>75%</span>
+            </div>
+            <div class="progress">
+                <div class="progress-fill" style="width:75%"></div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<footer class="footer">
+    
+
+    <div class="footer-main">
+
+        <div class="footer-col">
+            <h2 class="logo"><span style="color:#ddff00;">GOLD&nbsp;</span>GYM</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut dolore magna aliqua endisse ultrices gravida lorem.</p>
+
+            <div class="social">
+                <a href="#">🌐</a>
+                <a href="#">🐦</a>
+                <a href="#">▶️</a>
+                <a href="#">📸</a>
+                <a href="#">✉️</a>
+            </div>
+        </div>
+
+        <div class="footer-col">
+            <h3>Useful links</h3>
+            <ul>
+                <li>About</li>
+                <li>Blog</li>
+                <li>Classes</li>
+                <li>Contact</li>
+            </ul>
+        </div>
+
+        <div class="footer-col">
+            <h3>Support</h3>
+            <ul>
+                <li>Login</li>
+                <li>My account</li>
+                <li>Subscribe</li>
+                <li>Contact</li>
+            </ul>
+        </div>
+
+        <div class="footer-col">
+            <h3>Tips & Guides</h3>
+            <div class="tip">
+                <p><strong>Physical fitness may help prevent depression, anxiety</strong></p>
+                <span>3 min read • 20 Comment</span>
+            </div>
+
+            <div class="tip">
+                <p><strong>Fitness: The best exercise to lose belly fat and tone up…</strong></p>
+                <span>3 min read • 20 Comment</span>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        <p>GOLD GYM 2025 Latest Template | Copyright ©2025 All rights reserved</p>
+    </div>
+</footer>
+
+
+  <script>
+    // Toggle sidebar
+    $("#hamburger").click(function () {
+      $("#dropdown").toggleClass("active");
+    });
+
+    // Close button
+    $("#closeBtn").click(function () {
+      $("#dropdown").removeClass("active");
+    });
+
+    // Hide dropdown automatically when resizing back to desktop
+    $(window).resize(function () {
+      if ($(window).width() > 1024) {
+        $("#dropdown").removeClass("active");
+      }
+    });
+  </script>
+</body>
+</html>

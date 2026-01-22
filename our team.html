@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="bootstrap.bundle.min.js"></script>
+
+  <style>
+
+    .outer1 {
+      position: relative;
+    }
+
+    .inner1 {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      z-index: 1;
+      background-color: rgba(0, 0, 0, 0.705);
+      min-height: 100px;
+      display: flex;               
+      align-items: center;         
+      justify-content: space-between; 
+      padding: 0 20px;
+    }
+
+    .logo {
+      height: 80px;
+      width: 150px;
+    }
+
+    .main1 {
+      display: flex;
+      gap: 25px;
+      list-style: none;
+      margin-right: 25%;
+    }
+
+    .main1 li {
+      margin-left: 40px;
+    }
+
+    .main1 li a {
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 18px;
+      padding: 10px;
+    }
+
+    .main1 li a:hover {
+      color: rgb(255, 247, 0);
+      transition: 0.1s;
+      background-color: rgba(0, 0, 0, 0.607);
+      border-bottom: 3px solid rgb(255, 247, 0);
+    }
+
+    .carousel-caption h1 {
+      font-size: 100px;
+      font-weight: bold;
+    }
+
+    .carousel-caption h5 {
+      font-size: 30px;
+      font-weight: bold;
+    }
+
+    .carousel-caption {
+      bottom: 45%;   
+      margin-bottom: 0;
+      text-align: center;
+    }
+
+    /* ✅ Responsive caption scaling */
+    @media (max-width: 768px) {
+      .carousel-caption h1 {
+        font-size: 40px;   
+      }
+      .carousel-caption h5 {
+        font-size: 18px;
+      }
+      .carousel-caption {
+        bottom: 30%;       
+        text-align: center;
+      }
+    }
+
+    .hamburger {
+      width: 30px;
+      cursor: pointer;
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .hamburger span {
+      height: 4px;
+      background: white;
+      display: block;
+      border-radius: 2px;
+    }
+
+    /* ✅ Sidebar dropdown from left */
+    .dropdown {
+      color: #000;
+      text-decoration: none;  
+	  list-style: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 250px;
+      background: #fff;
+      padding: 20px;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.3);
+      transform: translateX(-100%); /* hidden off-screen */
+      transition: transform 0.3s ease;
+      z-index: 999;
+      flex-direction: column;
+    }
+
+    .dropdown.active {
+      transform: translateX(0); /* slide in */
+    }
+
+    .dropdown li {
+      text-decoration: none;
+      padding: 15px 0;
+      border-bottom: 1px solid #555;
+    }
+
+    .dropdown li a {
+      text-decoration: none;
+      color: #000;
+
+    }
+
+    /* ✅ Close button inside sidebar */
+    .close-btn {
+      margin-left: 190px;  
+      align-self: flex-end;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 1024px) {
+      .main1 {
+        display: none; 
+      }
+      .hamburger {
+        display: flex; 
+      }
+    }
+
+    @media (min-width: 1025px) {
+      .dropdown {
+        display: none !important; /* ✅ hide sidebar on desktop */
+      }
+    }
+
+    /* ✅ Fix carousel buttons visibility */
+    .carousel-control-prev,
+    .carousel-control-next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      bottom: auto; 
+      z-index: 2;   
+    }
+
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+      background-size: 100% 100%;
+      filter: invert(1); 
+    }
+
+    .carousel-inner {
+      height: auto;        
+      max-height: 800px;   
+    }
+
+
+
+
+    body {
+        margin: 0;
+        background: #111;
+        color: #fff;
+        font-family: Arial, sans-serif;
+    }
+
+    .section-title {
+	    margin-left:45%;
+        padding: 40px 20px 5px;
+        color: #d7f12f;
+        font-size: 14px;
+        letter-spacing: 2px;
+    }
+
+    .main-title {
+	    margin-left:37%;
+        font-size: 32px;
+        padding: 0 20px 30px;
+        font-weight: 700;
+    }
+
+    .team-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 25px;
+        padding: 0 20px 60px;
+    }
+
+    /* Each trainer image container */
+    .trainer {
+        position: relative;
+        overflow: hidden;
+        background: #222;
+        height: 380px;
+        border-radius: 4px;
+    }
+
+    .trainer img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    /* Sliding overlay */
+    .trainer .info {
+        position: absolute;
+        left: 0;
+        bottom: -100%;
+        width: 100%;
+        background: rgba(0,0,0,0.7);
+        padding: 20px;
+        text-align: center;
+        font-size: 20px;
+        font-weight: bold;
+        color: #d4f12f;
+        transition: bottom 0.4s ease;
+    }
+
+    .trainer:hover .info {
+        bottom: 0;
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+        .team-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 600px) {
+        .team-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+
+
+
+    .footer-main {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 50px;
+    padding: 60px 8%;
+}
+
+.footer-col h3 {
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+.footer-col ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-col ul li {
+    margin-bottom: 12px;
+    color: #ccc;
+    cursor: pointer;
+}
+
+.footer-col ul li:hover {
+    color: white;
+}
+
+.footer-col p {
+    color: #ccc;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.logo {
+    font-size: 38px;
+    font-weight: 900;
+}
+
+.social a {
+    margin-right: 15px;
+    color: white;
+    font-size: 20px;
+}
+
+/* Tips section inside footer */
+.tip {
+    margin-bottom: 25px;
+}
+
+.tip p {
+    color: #fff;
+    margin-bottom: 5px;
+}
+
+.tip span {
+    color: #aaa;
+    font-size: 13px;
+}
+
+/* Bottom */
+.footer-bottom {
+    border-top: 1px solid #222;
+    text-align: center;
+    padding: 20px;
+    color: #bbb;
+    font-size: 14px;
+}
+
+/* ---------------- Responsive ---------------- */
+
+/* Tablet */
+@media (max-width: 992px) {
+    .footer-main {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+    .footer-main {
+        grid-template-columns: 1fr;
+        text-align: left;
+    }
+
+    .footer-item {
+        justify-content: center;
+        text-align: center;
+    }
+
+    .footer-top {
+        gap: 40px;
+    }
+}
+
+  </style>
+</head>
+<body>
+    <div class="outer1">
+    <div class="inner1">
+      <img src="./images/Logo.png" alt="logo" class="logo">
+
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      <ul class="main1">
+        <li><a href="index.html">HOME</a></li>
+        <li><a href="aboutus.html">ABOUT US</a></li>
+        <li><a href="services.html" >SERVICES</a></li>
+        <li><a href="our team.html" style="color: #d9ff00; border-bottom: 3px solid yellow;">OUR TEAM</a></li>
+        <li><a href="contact.html">CONTACT</a></li>
+      </ul>
+
+      <ul class="dropdown" id="dropdown">
+        <div class="close-btn" id="closeBtn">&times;</div>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="aboutus.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="our team.html">Our team</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+
+    <div id="carouselExampleCaptions" class="carousel slide">
+      <div class="carousel-indicators">
+        
+      </div>
+
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="https://dreamzfitness.com/wp-content/uploads/2022/05/2T6A3844-scaled.jpg" class="d-block w-100" alt="...">
+          <div class="carousel-caption">
+            <h1><span style="color: #d9ff00;">OUR TEAM</span><br></h1>
+          </div>
+        </div>
+        
+      </div>
+
+      
+    </div>
+  </div>
+    
+
+
+
+  <div class="section-title">OUR TEAM</div>
+    <div class="main-title">TRAIN WITH EXPERTS</div>
+
+    <div class="team-grid">
+
+        <!-- Trainer 1 -->
+        <div class="trainer">
+            <img src="https://img.freepik.com/premium-photo/young-female-fitness-personal-trainer-with-notepad-standing-gym-with-thumb-up_146671-31568.jpg" alt="">
+            <div class="info">Anna Smith</div>
+        </div>
+
+        <!-- Trainer 2 -->
+        <div class="trainer">
+            <img src="https://thumbs.dreamstime.com/b/male-fitness-trainer-gym-portrait-smiling-standing-51545557.jpg" alt="">
+            <div class="info">John Carter</div>
+        </div>
+
+        <!-- Trainer 3 -->
+        <div class="trainer">
+            <img src="https://th.bing.com/th/id/OIP.v-CWQQ8VYR3irkcR4IZd0gHaE7?w=263&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3" alt="">
+            <div class="info">Mike Johnson</div>
+        </div>
+
+        <!-- Trainer 4 -->
+        <div class="trainer">
+            <img src="https://th.bing.com/th/id/R.86fd3437488022b66d04899b68c1cc4a?rik=wTImUVyMI9G1TA&riu=http%3a%2f%2f3.bp.blogspot.com%2f-uclnKwlpsCg%2fVputG85XChI%2fAAAAAAAAJeE%2fASiyRThq44g%2fs1600%2f9PM0njN7eh.jpg&ehk=nA0I31ajlpCxtPET9CB5Y7e2W7VLV1x0mTrYuMilSu8%3d&risl=&pid=ImgRaw&r=0" alt="">
+            <div class="info">Carlos Diaz</div>
+        </div>
+
+        <!-- Trainer 5 -->
+        <div class="trainer">
+            <img src="https://media.istockphoto.com/photos/portrait-of-a-beautiful-woman-at-the-gym-picture-id856797530?k=20&m=856797530&s=612x612&w=0&h=kFFhoXpDoF6jCmerJe-cZzOMKRvpl2orilNip2t3McU=" alt="">
+            <div class="info">Sophia Lee</div>
+        </div>
+
+        <!-- Trainer 6 -->
+        <div class="trainer">
+            <img src="https://t3.ftcdn.net/jpg/01/91/42/22/360_F_191422258_7xJ6Y8vGig474pHNSMta7ZITTDegNLSL.jpg" alt="">
+            <div class="info">Emma Rose</div>
+        </div>
+
+    </div>
+
+
+
+    <footer class="footer">
+    
+
+    <div class="footer-main">
+
+        <div class="footer-col">
+            <h2 class="logo"><span style="color:#ddff00;">GOLD&nbsp;</span>GYM</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut dolore magna aliqua endisse ultrices gravida lorem.</p>
+
+            <div class="social">
+                <a href="#">🌐</a>
+                <a href="#">🐦</a>
+                <a href="#">▶️</a>
+                <a href="#">📸</a>
+                <a href="#">✉️</a>
+            </div>
+        </div>
+
+        <div class="footer-col">
+            <h3>Useful links</h3>
+            <ul>
+                <li>About</li>
+                <li>Blog</li>
+                <li>Classes</li>
+                <li>Contact</li>
+            </ul>
+        </div>
+
+        <div class="footer-col">
+            <h3>Support</h3>
+            <ul>
+                <li>Login</li>
+                <li>My account</li>
+                <li>Subscribe</li>
+                <li>Contact</li>
+            </ul>
+        </div>
+
+        <div class="footer-col">
+            <h3>Tips & Guides</h3>
+            <div class="tip">
+                <p><strong>Physical fitness may help prevent depression, anxiety</strong></p>
+                <span>3 min read • 20 Comment</span>
+            </div>
+
+            <div class="tip">
+                <p><strong>Fitness: The best exercise to lose belly fat and tone up…</strong></p>
+                <span>3 min read • 20 Comment</span>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        <p>GOLD GYM 2025 Latest Template | Copyright ©2025 All rights reserved</p>
+    </div>
+</footer>
+
+  <script>
+    // Toggle sidebar
+    $("#hamburger").click(function () {
+      $("#dropdown").toggleClass("active");
+    });
+
+    // Close button
+    $("#closeBtn").click(function () {
+      $("#dropdown").removeClass("active");
+    });
+
+    // Hide dropdown automatically when resizing back to desktop
+    $(window).resize(function () {
+      if ($(window).width() > 1024) {
+        $("#dropdown").removeClass("active");
+      }
+    });
+  </script>
+</body>
+</html>
