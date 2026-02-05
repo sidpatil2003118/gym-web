@@ -24,7 +24,7 @@ gym-web/
 ├── jquery-3.7.1.min.js     # jQuery
 └── README.md               # Project documentation
 
-Clone the Repository:- git clone https://github.com/your-username/gym-web.git cd gym-web
+Clone the Repository:- git clone (https://sidpatil2003118.github.io/gym-web/) cd gym-web
 
 Open Locally
 Simply open index.html in your browser.
