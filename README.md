@@ -28,7 +28,7 @@ Clone the Repository:- git clone (https://sidpatil2003118.github.io/gym-web/) cd
 
 Open Locally
 Simply open index.html in your browser.
-https://your-username.github.io/gym-web/
+https://sidpatil2003118.github.io/gym-web/
 
 🤝 Contributing
 Pull requests are welcome! For major changes, please open an issue first to discuss what you’d like to improve.
